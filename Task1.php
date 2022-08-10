@@ -4,7 +4,7 @@ namespace src;
 
 class Task1
 {
-    public static function main($n)
+    public static function main(int $n)
     {
         $result = $n > 30
             ? "More than 30"
@@ -16,3 +16,5 @@ class Task1
         return $result;
     }
 }
+$user = new Task1();
+echo(Task1::main(5));

@@ -1,5 +1,27 @@
 <?php
+
+//require 'Task1.php';
+
 namespace src;
+
+function trinary_Test($n)
+{
+    $result = $n > 30
+        ? 'More than 30'
+        : ($n > 20
+            ? 'More than 20'
+            : ($n > 10
+                ? 'More than 10'
+                : 'Equal or less than 10'));
+
+    return $result;
+}
+echo(trinary_Test(32));
+echo(trinary_Test(21));
+echo(trinary_Test(12));
+echo(trinary_Test(4));
+
+//echo(Task1::main(39));
 //class Task1 {
 //    public function main($inputNumber){
 //        $inputNumber>30 ?:"More than 30";
@@ -15,66 +37,70 @@ namespace src;
 //    $inputNumber<=10 ?:"Equal or less than 10";
 //}
 //echo(main(25));
-$number=1234567;
+$number = 1234567;
 
-function req($number){
-    if ($number < 10){
+function req($number)
+{
+    if ($number < 10) {
         return $number;
     } else {
         $sum = 0;
         do {
             $sum += $number % 10;
-
-        }
-        while ($number === (int) $number / 10);
+        } while ($number === (int) $number / 10);
         echo $sum;
     }
 }
 
-function req2($n){
-    if($n < 10) {
+function req2($n)
+{
+    if ($n < 10) {
         return $n;
     } else {
         return ($n - 1) % 9 + 1;
     }
-
 }
 function main(int $n)
 {
-    if(gettype($n) === "int"){
-        if($n < 10) {
-            return $n;
-        } else {
-            return ($n - 1) % 9 + 1;
-        }
+    if ($n < 0) {
+        throw new \InvalidArgumentException('Number must be positive');
+    }
+    if ($n < 10) {
+        return $n;
     } else {
-        throw new \InvalidArgumentException("Wrong type");
+        return ($n - 1) % 9 + 1;
     }
 }
-echo (req2(7548));
-//echo (main("ghj"));
+//echo "fffffffffffffff";
+//echo (main(-97));
 
 
-function data($date ){
-    if(strtotime($date) === false){
-        throw new \InvalidArgumentException("Wrong data");
+function data(string $date)
+{
+    if (strtotime($date) === false) {
+        throw new \InvalidArgumentException('Wrong data');
     } else {
-    $today = date("d.m.Y");
-    $d1_ts = strtotime($today);
-    $d2_ts = strtotime($date);
-    $seconds = abs($d1_ts - $d2_ts);
-    $days = $seconds/(60*60*24);
-    echo $days;
+        $today = date('d.m.Y');
+        $d1_ts = strtotime($today);
+        $d2_ts = strtotime($date);
+        echo "\n";
+        echo $today;
+        $seconds = abs($d1_ts - $d2_ts);
+        $days = $seconds / (60 * 60 * 24);
+        echo 'fghjk';
+        echo $days;
     }
 }
-echo "days ";
+echo 'days ';
+data('01.08.2022');
 //data("2022-08-01");
-data("2022-08-01");
+echo "\n";
 //data("fgyuiol");
 
-function str($input) {
-    if(gettype($input) != "string"){
-        throw new \InvalidArgumentException("Wrong data");
+function str($input)
+{
+    if (gettype($input) != 'string') {
+        throw new \InvalidArgumentException('Wrong data');
     } else {
         $results = preg_split('/[\s_-]+/', $input);
         $arrOfResult = [];
@@ -82,16 +108,17 @@ function str($input) {
             $res[0] = strtoupper($res);
             array_push($arrOfResult, $res);
         }
-        return implode("", $arrOfResult);
+
+        return implode('', $arrOfResult);
     }
 }
-echo(str("The quick-brown_fox jumps over the_lazy-dog"));
+echo(str('The quick-brown_fox jumps over the_lazy-dog'));
 
-function getMondays(int $year, int $lastYear, int $month, int $lastMonth, string $day = 'Monday') {
+function getMondays(int $year, int $lastYear, int $month, int $lastMonth, string $day = 'Monday')
+{
     $mondayConst = 1;
     $start = "${lastYear}-${lastMonth}-01.";
-    $end = date("Y-m-t", strtotime("${year}-${month}-01."));
-
+    $end = date('Y-m-t', strtotime("${year}-${month}-01."));
 
     $startDate = strtotime($start);
     $endDate = strtotime($end);
@@ -99,67 +126,64 @@ function getMondays(int $year, int $lastYear, int $month, int $lastMonth, string
     echo $start;
     echo $end;
 
-    $startWeekDay = date("N", $startDate);
-    $endWeekDay = date("N", $endDate);
+    $startWeekDay = date('N', $startDate);
+    $endWeekDay = date('N', $endDate);
 
-    if ($startWeekDay < $endWeekDay)
-    {
+    if ($startWeekDay < $endWeekDay) {
         $partialWeekCount = ($mondayConst >= $startWeekDay && $mondayConst <= $endWeekDay);
-    }else if ($startWeekDay == $endWeekDay)
-    {
+    } elseif ($startWeekDay == $endWeekDay) {
         $partialWeekCount = $startWeekDay == $mondayConst;
-    }else
-    {
+    } else {
         $partialWeekCount = ($mondayConst >= $startWeekDay || $mondayConst <= $endWeekDay);
     }
-    echo "MOOOOOOOOOON";
+    echo 'MOOOOOOOOOON';
     echo "\n";
-    echo floor(  abs( $endDate-$startDate )/(60*60*24*7))+$partialWeekCount;
+    echo floor(abs($endDate - $startDate) / (60 * 60 * 24 * 7)) + $partialWeekCount;
 
     //echo "\n";
     //echo $start;
     //echo date("N", $startDate);
-
-
 }
 
 function fib(int $n)
 {
-    if ($n <= 1)
+    if ($n < 0) {
+        throw new \InvalidArgumentException('Number must be positive');
+    }
+    if ($n <= 1) {
         return $n;
+    }
+
     return fib($n - 1) +
         fib($n - 2);
 }
-echo "\n";
-echo "fib";
-echo fib(25);
-echo "\n";
 
-function json(string $json) {
+function json(string $json)
+{
     $obj = json_decode($json, true);
     $arrOfStrings = [];
     foreach ($obj as $key => $value) {
-        if(gettype($value)!="array") {
+        if (gettype($value) != 'array') {
             array_push($arrOfStrings, "{$key}: {$value}\n");
         } else {
-            foreach ($value as $keyInside => $valueInside)
-            array_push($arrOfStrings, "{$keyInside}: {$valueInside}\n");
+            foreach ($value as $keyInside => $valueInside) {
+                array_push($arrOfStrings, "{$keyInside}: {$valueInside}\n");
+            }
         }
         //echo "{$key} => {$value} ";
     }
     //var_dump(json_decode($json, true));
     //var_dump($arrOfStrings);
-    echo implode("", $arrOfStrings);
-    echo "end/";
-
+    return implode('', $arrOfStrings);
+    //echo "end/";
 }
 
 //echo daycount("Monday", strtotime("01.07.2022"), 0);
-echo "MONNN";
-getMondays(2022,2021,01,12);
-json('{"a":1,"b":2,"c":3,"d":4,"e":5}');
+//echo "MONNN";
+//getMondays(2022,2021,01,12);
+//json('{"a":1,"b":2,"c":3,"d":4,"e":5}');
 
-json('{
+echo json('{
 "Title": "The Cuckoos Calling",
 "Author": "Robert Galbraith",
 "Detail": {
@@ -168,44 +192,49 @@ json('{
 }
 ');
 
-function sum(array $arr, int $number) {
+function sum(array $arr, int $number)
+{
     $count = count($arr) - 2;
     $result = [];
     for ($i = 0; $i < $count; $i++) {
-        if ($arr[$i] + $arr[$i+1] + $arr[$i+2] === $number) {
-            array_push($result, "{$arr[$i]} + {$arr[$i+1]} + {$arr[$i+2]} = $number");
+        if ($arr[$i] + $arr[$i + 1] + $arr[$i + 2] === $number) {
+            array_push($result, "{$arr[$i]} + {$arr[$i + 1]} + {$arr[$i + 2]} = $number");
         }
     }
+
     return $result;
 }
 
-$arr = array(2, 7, 7, 1, 8, 2, 7, 8, 7);
-var_dump(sum($arr,10));
+$arr = [2, 7, 7, 1, 8, 2, 7, 8, 7];
+var_dump(sum($arr, 10));
 
-function collatz(int $input) {
-    if($input === 1) {
+function collatz(int $input)
+{
+    if ($input === 1) {
         return 1;
-    }
-    else if($input%2 === 0) {
-        $newNumber = $input/2;
+    } elseif ($input % 2 === 0) {
+        $newNumber = $input / 2;
         echo "${newNumber},";
+
         return collatz($newNumber);
     } else {
-        $newNumber = ($input*3)+1;
+        $newNumber = ($input * 3) + 1;
         echo "${newNumber},";
+
         return collatz($newNumber);
     }
 }
 collatz(12);
 
-function del(array $arr, int $position) {
+function del(array $arr, int $position)
+{
     var_dump($arr);
-    array_splice($arr, $position,1);
+    array_splice($arr, $position, 1);
     //unset($arr[$position]);
     var_dump($arr);
 }
-$x = array(1, 2, 3, 4, 5);
-del($x,3)
+$x = [1, 2, 3, 4, 5];
+del($x, 3);
 //echo daycount2("Monday", strtotime("17.07.2022"), 0);
 //echo "\n";
 ///echo time();
@@ -219,4 +248,5 @@ del($x,3)
 //echo date("N");
 //echo getdate('22.07.2022')['weekday'];
 //var_dump($w);
-?>
+//$user = new Task1();
+//echo (Task1::main(5));
